@@ -14,7 +14,7 @@ import MainChat from "@/components/chat/mainChat";
 export default function Home() {
     return (
         <>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <MainChat />
             {/* <Hero />
             <Features />
