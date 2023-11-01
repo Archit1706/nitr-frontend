@@ -6,6 +6,9 @@ import Header from "@/components/ui/header";
 import Banner from "@/components/banner";
 import { ClerkProvider } from "@clerk/nextjs";
 
+import AppProvider from "../context/AppContext";
+import { ProductProvider } from "../context/ProductContext";
+
 const inter = Inter({
     subsets: ["latin"],
     variable: "--font-inter",
@@ -24,17 +27,21 @@ export default function RootLayout({
 }) {
     return (
         <ClerkProvider>
-            <html lang="en">
-                <body
-                    className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}
-                >
-                    <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
-                        <Header />
-                        <div className="pt-20">{children}</div>
-                        {/* <Banner /> */}
-                    </div>
-                </body>
-            </html>
+            <AppProvider>
+                <ProductProvider>
+                    <html lang="en">
+                        <body
+                            className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}
+                        >
+                            <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+                                <Header />
+                                <div className="pt-20">{children}</div>
+                                {/* <Banner /> */}
+                            </div>
+                        </body>
+                    </html>
+                </ProductProvider>
+            </AppProvider>
         </ClerkProvider>
     );
 }
