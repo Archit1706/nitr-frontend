@@ -104,7 +104,8 @@ const ImageModal: FC<Props> = ({
                             image={!selectedScene.img ? "" : (selectedScene.img instanceof File ? URL.createObjectURL(selectedScene.img) : selectedScene.img)}
                             pitch={10}
                             yaw={180}
-                            hfov={700}
+                            // hfov={400}
+                            // vfov={200}
                             autoLoad
                             author=""
                             title=""
