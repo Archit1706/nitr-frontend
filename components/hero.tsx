@@ -1,5 +1,6 @@
 import VideoThumb from "@/public/images/hero-image.png";
 import ModalVideo from "@/components/modal-video";
+import Link from "next/link";
 
 export default function Hero() {
     return (
@@ -66,20 +67,20 @@ export default function Hero() {
                                 data-aos-delay="300"
                             >
                                 <div>
-                                    <a
+                                    <Link
                                         className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0"
-                                        href="#0"
+                                        href="/broker/properties"
                                     >
-                                        Start free trial
-                                    </a>
+                                        For Broker
+                                    </Link>
                                 </div>
                                 <div>
-                                    <a
+                                    <Link
                                         className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
-                                        href="#0"
+                                        href="/client/properties"
                                     >
-                                        Learn more
-                                    </a>
+                                        For Client
+                                    </Link>
                                 </div>
                             </div>
                         </div>

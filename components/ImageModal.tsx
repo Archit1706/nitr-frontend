@@ -194,6 +194,14 @@ const ImageModal: FC<Props> = ({
                                         text={hotSpot.text}
                                         handleClick={(evt: any) => {
                                             console.log("Hotspot clicked!", evt);
+                                            setScenes((prev) => {
+                                                return prev.map((scene) => {
+                                                    if (scene.id === selectedScene.id) {
+                                                        return selectedScene
+                                                    }
+                                                    return scene
+                                                })
+                                            })
                                             setSelectedScene(
                                                 scenes.find((scene) => scene.id === hotSpot.link) || null
                                             )

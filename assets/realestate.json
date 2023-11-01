@@ -1,0 +1,455 @@
+[{
+  "_id": {
+    "$oid": "64526986e862bc95ff20678b"
+  },
+  "name": "2BHK Gorgeous Villa",
+  "brand": "",
+  "description": "This house is located in a peaceful neighborhood and has been recently renovated. It is the perfect place to call home with its spacious rooms, modern kitchen, and cozy living room.",
+  "tags": [],
+  "price": 2000200,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "Alex",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "Catherine",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Nina",
+      "comment": "Is the house pet friendly?",
+      "response": "Yes, the house is pet friendly."
+    },
+    {
+      "name": "James",
+      "comment": "Does the house have a backyard?",
+      "response": "Yes, the house has a backyard with a patio."
+    }
+  ],
+  "condition": "Pre owned",
+  "images": [
+    "https://r1imghtlak.mmtcdn.com/14112c9e862511eabbbb0242ac110003.jpg?&output-quality=75&downsize=910:612&crop=910:612;4,0&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r1imghtlak.mmtcdn.com/c4bb2b72c2ee11e8bf340207f3775c6e.jpg?&output-quality=75&downsize=910:612&crop=910:612;0,115&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r1imghtlak.mmtcdn.com/c4046e52c14d11e8b16a0ab9279c59c4.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/201809261224159700-c10368e8c2f111e8adab0207f3775c6e.jpg?&output-quality=75&downsize=910:612&crop=910:612;4,0&output-format=jpg&downsize=821:550&crop=821:550"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-12-01T16:30:47.311Z"
+  },
+  "seller": "Parag Patel",
+  "buyer": null,
+  "status": "Pending",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 1,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "645269a1e862bc95ff20678d"
+  },
+  "name": "2BHK Home",
+  "brand": "",
+  "description": "This beautiful house is located in the heart of the city and has been recently renovated. It is the perfect place to call home with its spacious rooms, modern kitchen, and cozy living room.",
+  "tags": [],
+  "price": 3000000,
+  "rating": 4.2,
+  "sellerReviews": [
+    {
+      "name": "John",
+      "comment": "The seller was very friendly and helpful. The house is very nice and the location is great!",
+      "rating": 5
+    },
+    {
+      "name": "Diana",
+      "comment": "I am very happy with my purchase. The house is exactly what I was looking for and the seller was very responsive.",
+      "rating": 4.5
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Max",
+      "comment": "Is the house pet friendly?",
+      "response": "Yes, the house is pet friendly."
+    },
+    {
+      "name": "Carol",
+      "comment": "Does the house have a backyard?",
+      "response": "Yes, the house has a backyard with a patio."
+    }
+  ],
+  "condition": "Newily built",
+  "images": [
+    "https://assets.architecturaldigest.in/photos/60084cfbeebcfd50ede87d0f/master/pass/Mumbai-2-BHK-flat-Japandi-design-ZERO9-1366x768.jpg",
+    "https://assets.architecturaldigest.in/photos/60084cfde6e1f647401899f9/master/w_1600,c_limit/Mumbai-2-BHK-flat-Japandi-design-ZERO9-13.jpg",
+    "https://assets.architecturaldigest.in/photos/60084cfecce5700439e12bb0/master/w_1600,c_limit/Mumbai-2-BHK-flat-Japandi-design-ZERO9-12.jpg",
+    "https://assets.architecturaldigest.in/photos/60084cfda8f8397741704c18/master/w_1600,c_limit/Mumbai-2-BHK-flat-Japandi-design-ZERO9-11.jpg"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-16T23:30:00.000Z"
+  },
+  "seller": "Arjun Doshi",
+  "buyer": "",
+  "status": "Unsold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1000,
+    "Rooms": 4,
+    "City": "mumbai"
+  },
+  "location": "Mumbai, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64526ada65efd60ad44a115c"
+  },
+  "name": "Marvelous 3BHK Villa",
+  "brand": "",
+  "description": "This house is located in a friendly neighborhood and has been recently renovated. It is the perfect place to call home with its spacious bedrooms, modern kitchen, and cozy living room.",
+  "tags": [],
+  "price": 2000000,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "Max",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "Jade",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Nigel",
+      "comment": "Does the house have a playground?",
+      "response": "Yes, the house has a playground for kids."
+    },
+    {
+      "name": "Mike",
+      "comment": "Is there a storage space?",
+      "response": "Yes, there is a storage space with the house."
+    }
+  ],
+  "condition": "Pre owned",
+  "images": [
+    "https://cdn1.goibibo.com/voy_ing/t_g/d9ce8da2416911e9abde0242ac110003.jpg",
+    "https://cdn1.goibibo.com/voy_ing/t_fs/c33706d2416911e990d60242ac110003.jpg",
+    "https://cdn1.goibibo.com/voy_ing/t_fs/dd10f23600d611e88c710224510f5e5b.jpg",
+    "https://cdn1.goibibo.com/voy_ing/t_fs/3c2b9b48416a11e987120242ac110004.jpg"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-19T21:00:00.000Z"
+  },
+  "seller": "Niti Singh",
+  "buyer": "Aaradhya Nitin",
+  "status": "Sold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64526aea65efd60ad44a115e"
+  },
+  "name": "Spacious 3BHK Villa",
+  "brand": "",
+  "description": "This house is located in a quiet neighborhood and has been recently updated. It is the perfect place to call home with its large bedrooms, modern kitchen, and inviting living room.",
+  "tags": [],
+  "price": 2000000,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "Ricky",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "Karen",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Steven",
+      "comment": "Does the house have a library?",
+      "response": "Yes, the house has a library with a bookshelf."
+    },
+    {
+      "name": "Andy",
+      "comment": "Is there a gym space?",
+      "response": "Yes, there is a gym space with the house."
+    }
+  ],
+  "condition": "Newily built",
+  "images": [
+    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/264832782.jpg?k=f151df79830a4cb2e9fafccda01bb4560ef56f6ae6e225560e8ea342f9404cd0&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/264832773.jpg?k=fc24c2349897e78c9b5f27568d33aad97cdece702795aecd512df4b9f4249ee4&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/264832740.jpg?k=abea00e8b6cf426a3573d1657870fb2d39052b93473d51d678a8b885fcb33cb0&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/264832749.jpg?k=59aa107959b216c985bf4ea56a8011e24906e302575826322f06ab36ec068cf7&o=&hp=1"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-14T04:00:00.000Z"
+  },
+  "seller": "Apurva Joshi",
+  "buyer": "",
+  "status": "Unsold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64526af765efd60ad44a1164"
+  },
+  "name": "Lovely 2BHK Villa",
+  "brand": "",
+  "description": "This house is located in a family-friendly neighborhood and has been recently renovated. It is the perfect place to call home with its large bedrooms, modern kitchen, and inviting living room.",
+  "tags": [],
+  "price": 2000000,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "Mark",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "Amy",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Sara",
+      "comment": "Does the house have a terrace?",
+      "response": "Yes, the house has a terrace with a view."
+    },
+    {
+      "name": "Paul",
+      "comment": "Is there a garage space?",
+      "response": "Yes, there is a garage space with the house."
+    }
+  ],
+  "condition": "Requires Repairs",
+  "images": [
+    "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/335763708.jpg?k=ff453d8f1a5d9e36e586ef8950d343e9cbc5a839172b43b31b3c4b6ad843fc77&o=",
+    "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/335763700.jpg?k=7f6472819afc63388dd389c500b09d1b6cafb55abc52a13ce724d4bf9bac2d00&o=",
+    "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/335763702.jpg?k=27383b057dee9fdd1e620b9edfd4700c5812cf65417bd7fde8c027317cda900b&o=",
+    "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/335763726.jpg?k=0c5b4a813bd061a72bd631b23010c4b6a012f34a5eb076ff0946f55c165caa24&o="
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-17T19:00:00.000Z"
+  },
+  "seller": "Dhruv Jain",
+  "buyer": "",
+  "status": "Unsold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64526b0565efd60ad44a116c"
+  },
+  "name": "Beautiful 4BHK Villa",
+  "brand": "",
+  "description": "This house is located in a vibrant neighborhood and has been recently updated. It is the perfect place to call home with its large bedrooms, modern kitchen, and comfortable living room.",
+  "tags": [],
+  "price": 2000000,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "Sarah",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "George",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Jessica",
+      "comment": "Does the house have a garden?",
+      "response": "Yes, the house has a garden with a fountain."
+    },
+    {
+      "name": "David",
+      "comment": "Is there a swimming pool?",
+      "response": "Yes, there is a swimming pool with the house."
+    }
+  ],
+  "condition": "Pre owned",
+  "images": [
+    "https://r1imghtlak.mmtcdn.com/499ab20e14e711eaab710242ac110009.jpg?&output-quality=75&downsize=910:612&crop=910:612;0,16&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r1imghtlak.mmtcdn.com/86f81fa614e711ea85aa0242ac110003.jpg?&output-quality=75&downsize=910:612&crop=910:612;0,2&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r1imghtlak.mmtcdn.com/86db182014e711ea8bf90242ac110009.jpg?&output-quality=75&downsize=910:612&crop=910:612;4,0&output-format=jpg&downsize=821:550&crop=821:550",
+    "https://r1imghtlak.mmtcdn.com/0967e2700f8111eb834c0242ac110002.jpg?&output-quality=75&downsize=910:612&crop=910:612;4,0&output-format=jpg&downsize=821:550&crop=821:550"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-08T12:45:00.000Z"
+  },
+  "seller": "Mokshit Surana",
+  "buyer": "",
+  "status": "Unsold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "64526b2165efd60ad44a1170"
+  },
+  "name": "Fantastic 4BHK Villa",
+  "brand": "",
+  "description": "This house is located in a bustling neighborhood and has been recently updated. It is the perfect place to call home with its large bedrooms, modern kitchen, and cozy living room.",
+  "tags": [],
+  "price": 2000000,
+  "rating": 4.5,
+  "sellerReviews": [
+    {
+      "name": "John",
+      "comment": "The seller was very helpful and the house is beautiful. The location is great!",
+      "rating": 4.8
+    },
+    {
+      "name": "Lina",
+      "comment": "I'm very pleased with my purchase. The house is just what I was looking for and the seller was very responsive.",
+      "rating": 4.7
+    }
+  ],
+  "productQuestions": [
+    {
+      "name": "Harry",
+      "comment": "Does the house have a balcony?",
+      "response": "Yes, the house has a balcony with a view."
+    },
+    {
+      "name": "Ron",
+      "comment": "Is there a parking space?",
+      "response": "Yes, there is a parking space with the house."
+    }
+  ],
+  "condition": "Newily built",
+  "images": [
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/233313091.jpg?k=d7b77c4b708b85243d64f5fb938fbf84d5985e7cbcb10ac4d47ed42f24fefd27&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/234167027.jpg?k=db7e2750d4f55ea45de603433ab7e5ecec228ff0efe3457ed82cc954d18ca29b&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/234167034.jpg?k=52290f34f693e26179f5efd362d745f3ff4f68270460baa1825f1f46999049c9&o=&hp=1",
+    "https://cf.bstatic.com/xdata/images/hotel/max1280x900/234167011.jpg?k=e7bce7e2d38e8e8a344f2853bb45e934b49a029e6b3a733ceb0572924001cd32&o=&hp=1"
+  ],
+  "createDate": {
+    "$date": "2023-05-03T12:00:00.000Z"
+  },
+  "soldDate": {
+    "$date": "2023-05-13T23:30:00.000Z"
+  },
+  "seller": "John Doe",
+  "buyer": "",
+  "status": "Unsold",
+  "category": "Real-Estate",
+  "specs": {
+    "Under Construction": "No",
+    "Rera Approved": "Yes",
+    "Ready to MoveIn": "Yes",
+    "Resale": "No",
+    "Area": 1200,
+    "Rooms": 3,
+    "City": "Delhi"
+  },
+  "location": "Delhi, IN",
+  "returns": false,
+  "bids": 0,
+  "__v": 0
+}]

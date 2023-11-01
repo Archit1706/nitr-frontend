@@ -23,10 +23,12 @@ export default function AuctionHero(props: Props) {
     const progressContent = useRef(null);
     const onAutoplayTimeLeft = (s: any, time: number, progress: number) => {
         if (progressCircle.current && progressContent.current) {
+            // @ts-ignore
             progressCircle.current.style.setProperty(
                 "--progress",
                 1 - progress
             );
+            // @ts-ignore
             progressContent.current.textContent = `${Math.ceil(time / 1000)}s`;
         }
     };

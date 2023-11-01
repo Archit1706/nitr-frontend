@@ -10,18 +10,19 @@
     justify-content: center;
     align-items: center;
     border-radius: 0.5rem;
-    /* background: var(--blue); */
+    background-color: blueviolet;
 }
 
 .counter .counter-item span.label {
     font-size: 0.8rem;
-    color: var(--blue-dark);
+    color: "blue";
     width: 100%;
     text-transform: uppercase;
     font-weight: 700;
     text-align: center;
     margin-top: 0.1rem;
-    background: #fff;
+    background: blueviolet;
+    color: #fff;
 }
 
 .counter .counter-item span.value {

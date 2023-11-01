@@ -27,7 +27,7 @@ const LinkSceneModal: FC<Props> = ({
 
     const [loading, setLoading] = useState(false);
 
-    const [choice, setChoice] = useState('');
+    const [choice, setChoice] = useState('0');
 
     return (
         <>

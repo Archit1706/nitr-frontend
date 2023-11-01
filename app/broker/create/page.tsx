@@ -27,13 +27,27 @@ const CreateProperty = (props: Props) => {
 
     const [selectedScene, setSelectedScene] = React.useState<Scene | null>(null);
 
+    const [typeOfProperty, setTypeOfProperty] = React.useState("sale");
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(scenes.length == 0) {
+        if (scenes.length == 0) {
             alert("Please add at least one scene");
             return;
         }
+
+        console.log("data", {
+            title,
+            location,
+            bedrooms,
+            prop_size,
+            price,
+            desc,
+            amenities,
+            scenes,
+            typeOfProperty
+        });
 
 
         setLoading(true);
@@ -46,6 +60,7 @@ const CreateProperty = (props: Props) => {
         formData.append("desc", desc);
         formData.append("amenities", JSON.stringify(amenities));
         formData.append("scenes", JSON.stringify(scenes));
+        formData.append("typeOfProperty", typeOfProperty);
         // const res = await fetch("/api/property/create", {
         //     method: "POST",
         //     body: formData
@@ -64,7 +79,7 @@ const CreateProperty = (props: Props) => {
     useEffect(() => {
         console.log("scene updated", scenes);
     }, [scenes])
-    
+
     return (
         <section className='flex w-full'>
 
@@ -224,7 +239,7 @@ const CreateProperty = (props: Props) => {
                                         </p>
                                     </div>
                                     <div
-                                        className="text-center py-3 px-8 text-sm font-medium bg-peach-dark text-gray-100 rounded-2xl cursor-pointer sm:w-min hover:bg-peach hover:text-gray-50 bg-violet-400 hover:opacity-90"
+                                        className="text-center py-3 px-8 text-sm font-medium bg-peach-dark text-gray-100 rounded-2xl cursor-pointer sm:w-min hover:bg-peach hover:text-gray-50 bg-purple-400 hover:opacity-90"
                                         onClick={() => {
                                             if (newAmenity.length >= 3) {
                                                 setAmenities((prev) => [...prev, newAmenity]);
@@ -278,13 +293,13 @@ const CreateProperty = (props: Props) => {
                                             <div className="flex gap-2 flex-wrap">
                                                 {scenes.map((scene, index) => {
                                                     return (
-                                                        <div key={index} className="relative w-32 h-32 rounded-lg shadow-md">
+                                                        <div key={index} className="relative w-32 rounded-lg shadow-md">
                                                             <img
                                                                 onClick={() => {
                                                                     setSelectedScene(scene);
                                                                     setShowImageModal(true);
                                                                 }}
-                                                                className="w-full h-full object-cover rounded-xl"
+                                                                className="w-32 h-32 object-cover rounded-xl"
                                                                 src={!scene.img ? "" : (scene.img instanceof File ? URL.createObjectURL(scene.img) : scene.img)}
                                                                 alt="Image"
                                                             />
@@ -296,6 +311,10 @@ const CreateProperty = (props: Props) => {
                                                             >
                                                                 <RxCross2 className="w-4 h-4 text-white" />
                                                             </button>
+                                                            <input
+                                                                type="text"
+                                                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mt-3 leading-tight focus:outline-none focus:bg-white"
+                                                            />
                                                         </div>
                                                     )
                                                 })}
@@ -339,7 +358,7 @@ const CreateProperty = (props: Props) => {
                                                             {
                                                                 id: scenes.length,
                                                                 img: e.target.files ? e.target.files[0] : "",
-                                                                text: e.target.files ? e.target.files[0].name : "",
+                                                                text: e.target.files ? e.target.files[0].name.split(".")[0] : "",
                                                                 hotspots: []
                                                             }
                                                         ]);
@@ -356,11 +375,34 @@ const CreateProperty = (props: Props) => {
                             </div>
                         </div>
 
+                        <div className="flex flex-wrap -mx-3 mb-6">
+                            <div className="w-full px-3 mb-6 md:mb-0">
+                                <label
+                                    className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                    htmlFor="type"
+                                >
+                                    Type
+                                </label>
+                                <select
+                                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                    value={typeOfProperty}
+                                    onChange={(e) => setTypeOfProperty(e.target.value)}
+                                    id="type"
+                                    placeholder="property description"
+                                >
+                                    <option value="sale">Sale</option>
+                                    <option value="rent">Rent</option>
+                                    <option value="bid">Bid</option>
+                                </select>
+                            </div>
+                        </div>
+
+
                         <button
                             disabled={loading}
                             type="submit"
                             className={`${loading && "opacity-80"
-                                } text-white text-center text-lg fundo-button w-full py-3 rounded-xl`}
+                                } text-white text-center text-lg bg-purple-400 w-full py-3 rounded-xl`}
                         >
                             {loading ? "Creating..." : "Create"}
                         </button>

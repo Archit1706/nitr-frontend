@@ -33,9 +33,9 @@ export default function RootLayout({
                         <body
                             className={`${inter.variable} font-inter antialiased bg-white text-gray-900 tracking-tight`}
                         >
-                            <div className="flex flex-col min-h-screen overflow-hidden supports-[overflow:clip]:overflow-clip">
+                            <div className="mx-auto flex flex-col items-center min-h-screen max-w-[1440px] overflow-hidden supports-[overflow:clip]:overflow-clip">
                                 <Header />
-                                <div className="pt-20">{children}</div>
+                                <div className="pt-20 w-full px-4 md:px-12">{children}</div>
                                 {/* <Banner /> */}
                             </div>
                         </body>
