@@ -1,6 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
 import ImageModal from '@/components/ImageModal'
+import { Scene } from '@/types/MainTypes'
 import React from 'react'
 import { RxCross2 } from 'react-icons/rx'
 
@@ -12,21 +14,28 @@ const CreateProperty = (props: Props) => {
 
     const [loading, setLoading] = React.useState(false);
 
-    const [images, setImages] = React.useState<(File)[]>([]);
+    const [scenes, setScenes] = React.useState<Scene[]>([]);
 
     const [showImageModal, setShowImageModal] = React.useState(false);
 
-    const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
+    const [selectedScene, setSelectedScene] = React.useState<Scene | null>(null);
+    
+    useEffect(()=>{
+        console.log("scene updated", scenes);
+    }, [scenes])
 
     return (
         <section>
 
             {
-                showImageModal && selectedImage && (
+                showImageModal && selectedScene && (
                     <ImageModal
-                        image={selectedImage}
+                        selectedScene={selectedScene}
+                        setSelectedScene={setSelectedScene}
+                        scenes={scenes}
+                        setScenes={setScenes}
                         toggleCreateModal={() => {
-                            setSelectedImage(null);
+                            setSelectedScene(null);
                             setShowImageModal(false);
                         }}
                     />
@@ -70,24 +79,24 @@ const CreateProperty = (props: Props) => {
                                 </label>
                                 <div className="flex flex-col items-center justify-center w-full space-y-4">
                                     {
-                                        images?.length != 0 && (
+                                        scenes?.length != 0 && (
                                             <div className="flex gap-2 flex-wrap">
-                                                {images.map((img, index) => {
+                                                {scenes.map((scene, index) => {
                                                     return (
                                                         <div key={index} className="relative w-32 h-32 rounded-lg shadow-md">
                                                             <img
                                                                 onClick={() => {
-                                                                    setSelectedImage(img);
+                                                                    setSelectedScene(scene);
                                                                     setShowImageModal(true);
                                                                 }}
                                                                 className="w-full h-full object-cover rounded-xl"
-                                                                src={!img ? "" : (img instanceof File ? URL.createObjectURL(img) : img)}
+                                                                src={!scene.img ? "" : (scene.img instanceof File ? URL.createObjectURL(scene.img) : scene.img)}
                                                                 alt="Image"
                                                             />
                                                             <button
                                                                 className="absolute top-0 right-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
                                                                 onClick={() => {
-                                                                    setImages((prev) => prev.filter((t, i) => i !== index));
+                                                                    setScenes((prev) => prev.filter((t, i) => i !== index));
                                                                 }}
                                                             >
                                                                 <RxCross2 className="w-4 h-4 text-white" />
@@ -99,7 +108,7 @@ const CreateProperty = (props: Props) => {
                                         )
                                     }
 
-                                    {images.length < 6 && (
+                                    {scenes.length < 6 && (
                                         <label
                                             htmlFor="dropzone-file"
                                             className="flex flex-col items-center justify-center w-full border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
@@ -130,8 +139,15 @@ const CreateProperty = (props: Props) => {
                                             <input
                                                 onChange={(e) => {
                                                     if (e.target.files) {
-                                                        // @ts-ignore
-                                                        setImages((prev) => [...prev, e.target.files[0]]);
+                                                        setScenes((prev) => [
+                                                            ...prev,
+                                                            {
+                                                                id: scenes.length,
+                                                                img: e.target.files ? e.target.files[0] : "",
+                                                                text: e.target.files ? e.target.files[0].name : "",
+                                                                hotspots: []
+                                                            }
+                                                        ]);
                                                     }
                                                 }}
                                                 id="dropzone-file"
