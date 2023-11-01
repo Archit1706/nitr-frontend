@@ -119,11 +119,11 @@ const Sidebar = () => {
                     <button className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ">
                         + New Chat
                     </button>
-                    <button className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4">
-                        <AiOutlineMenuFold
-                            onClick={() => setOpen(false)}
-                            className=""
-                        />
+                    <button
+                        className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500"
+                        onClick={() => setOpen(!open)}
+                    >
+                        <AiOutlineMenuFold className="" />
                     </button>
                 </div>
                 {Array.isArray(chats) && chats.length > 0 ? (
@@ -149,11 +149,11 @@ const Sidebar = () => {
                     !open ? "block" : "hidden"
                 }`}
             >
-                <button className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4">
-                    <AiOutlineMenuUnfold
-                        onClick={() => setOpen(true)}
-                        className=""
-                    />
+                <button
+                    className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500 "
+                    onClick={() => setOpen(!open)}
+                >
+                    <AiOutlineMenuUnfold className="" />
                 </button>
             </div>
         </section>

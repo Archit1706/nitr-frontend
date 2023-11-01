@@ -21,6 +21,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
+    "swiper": "^11.0.3",
+    "swiper-react": "^1.0.0",
     "typescript": "^5.0.4"
   },
   "devDependencies": {
