@@ -109,6 +109,50 @@ const CreateProperty = (props: Props) => {
                 }
             ]
         },
+        {
+            "title": "Ramnivas 3",
+            "location": "Malad, Mumbai",
+            "bedrooms": "2",
+            "prop_size": "600",
+            "price": "2000000",
+            "desc": "New property on sale!",
+            "typeOfProperty": "bid",
+            "amenities": [
+                "A/C",
+                "Pool",
+                "Sea View"
+            ],
+            "scenes": [
+                {
+                    "id": 0,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "test",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 174.74930458511992,
+                            "yaw": 21.631147406159144,
+                            "link": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "nit",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 0.09009231299632514,
+                            "yaw": 10.723411299831989,
+                            "link": 0
+                        }
+                    ]
+                }
+            ]
+        },
     ]);
 
     const data = [
@@ -163,7 +207,8 @@ const CreateProperty = (props: Props) => {
                 <h1 className='text-3xl font-semibold self-start text-gray-800 mb-3'>Properties</h1>
                 <div className=" bg-white rounded-[10px] flex flex-col w-full items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
                     <Tabs value="all"
-                        style={{ width: "100%", minHeight: "100vh" }}
+                        style={{ width: "100%", minHeight: "100vh", overflowY: 'scroll' }}
+                        className="noscr"
                     >
                         <TabsHeader>
                             {data.map(({ label, value }) => (
