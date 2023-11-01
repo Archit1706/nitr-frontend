@@ -11,7 +11,9 @@ import "swiper/css/navigation";
 import "./auctionStyles.css";
 
 // import required modules
-import { Autoplay, Pagination, Navigation } from "swiper";
+// import Autoplay from "swiper/modules/autoplay";
+// import Pagination from "swiper";
+// import Navigation from "swiper";
 
 type Props = {
     images: any;
@@ -43,7 +45,7 @@ export default function AuctionHero(props: Props) {
                     clickable: true,
                 }}
                 navigation={true}
-                modules={[Autoplay, Pagination, Navigation]}
+                // modules={[Autoplay, Pagination, Navigation]}
                 onAutoplayTimeLeft={onAutoplayTimeLeft}
                 className="mySwiper"
             >

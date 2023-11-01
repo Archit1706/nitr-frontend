@@ -1,13 +1,33 @@
 "use client";
 
 import ImageModal from "@/components/ImageModal";
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
+import { BiMessageDetail } from "react-icons/bi";
+import { BsFillSendFill } from "react-icons/bs";
+import {
+    AiOutlineMenuUnfold,
+    AiOutlineMenuFold,
+    AiFillRobot,
+} from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 import { TbPhotoSearch, TbArrowBack } from "react-icons/tb";
+import { Chat, Thread } from "@/types/MainTypes";
+import { Slider } from "@/components/slider";
+import { FiUser } from "react-icons/fi";
 
 type Props = {};
 
 const mainChat = () => {
+    const [open, setOpen] = useState(true); // sidebar open state
+    const [file, setFile] = useState(true);
+    const [chats, setChats] = useState<Thread[]>([
+        {
+            id: 1,
+            prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
+        },
+    ]);
+
     const [title, setTitle] = useState("");
 
     const [loading, setLoading] = useState(false);
@@ -19,33 +39,148 @@ const mainChat = () => {
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
     const [outfitPrompt, setOutfitPrompt] = useState("");
+    const [chat, setChat] = useState([
+        {
+            id: 1,
+            prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
+            output: [
+                "https://picsum.photos/id/23/300/300",
+                "https://picsum.photos/id/2/300/300",
+            ],
+        },
+        {
+            id: 2,
+            prompt: "Give me some ideas for my living room. I want to use a modern look and feel.",
+            output: [
+                "https://picsum.photos/id/23/300/300",
+                "https://picsum.photos/id/2/300/300",
+            ],
+        },
+        // {
+        //     id: 3,
+        //     prompt: "",
+        //     output: ["", ""],
+        // },
+        // {
+        //     id: 4,
+        //     prompt: "",
+        //     output: ["", ""],
+        // },
+    ]);
+    const [message, setMessage] = useState<Thread>({
+        id: 1,
+        prompt: "",
+        output: ["", ""],
+    });
+
+    // send prompt to the backend api in body and get the response and store it in message.response
+    const handleSubmit = () => {
+        fetch(`${process.env.NEXT_PUBLIC_NGROK}/api/predict`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: outfitPrompt }),
+        })
+            .then((res) => {
+                res.json().then((data) => {
+                    console.log(data);
+                    setChat((prev) => [...prev, data]);
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
-        <div className="flex flex-col justify-center items-center h-screen w-screen bg-gray-100">
-            <h1 className="text-4xl font-bold">Create Property</h1>
-            <div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-[40%] left-1/2 sm:w-[650px] max-sm:w-[90%] bg-white rounded-[10px] flex flex-col items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
-                <form className="w-full max-w-lg">
-                    <div className="flex flex-wrap -mx-3 mb-6">
-                        <div className="w-full px-3 mb-6 md:mb-0">
-                            <label
-                                className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
-                                htmlFor="title"
-                            >
-                                Title
-                            </label>
-                            <input
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                id="topic"
-                                type="text"
-                                placeholder="property name"
-                                required
-                            />
-                        </div>
+        <main className="w-full flex justify-center items-start relative gap-4 p-4 ">
+            <div className="w-1/5">
+                <div
+                    className={`w-full flex flex-col justify-start items-start ${
+                        !open ? "hidden" : "block"
+                    }`}
+                >
+                    <div className="w-full h-1/4 flex flex-row justify-start items-center">
+                        <button className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ">
+                            + New Chat
+                        </button>
+                        <button
+                            className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500"
+                            onClick={() => setOpen(!open)}
+                        >
+                            <AiOutlineMenuFold className="" />
+                        </button>
                     </div>
+                    {Array.isArray(chats) && chats.length > 0 ? (
+                        chat.map((chaty, index) => (
+                            <div
+                                key={index}
+                                className="flex w-full flex-row justify-start items-center hover:bg-teal-900 hover:text-gray-200 rounded-md p-4 mt-2"
+                            >
+                                <div className="w-1/4 h-1/4 flex flex-col justify-center items-center">
+                                    <BiMessageDetail className="w-6 h-6" />
+                                </div>
+                                <div className="w-3/4 h-3/4 flex flex-col justify-center items-start">
+                                    <h1>Chat {chaty.id}</h1>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="flex flex-row justify-center items-center">
+                            <h1>No chats yet</h1>
+                        </div>
+                    )}
+                </div>
+                <div
+                    className={`w-full flex flex-col justify-start items-start ${
+                        !open ? "block" : "hidden"
+                    }`}
+                >
+                    <button
+                        className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500 "
+                        onClick={() => setOpen(!open)}
+                    >
+                        <AiOutlineMenuUnfold className="" />
+                    </button>
+                </div>
+            </div>
+            <div
+                className={`flex flex-col justify-center items-center h-screen transition-all duration-300 rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-600 max-h-screen relative overflow-y-auto mt-20 ${
+                    open ? "w-4/5" : "w-full"
+                }`}
+            >
+                <h1 className="text-4xl font-bold">Chat with AI</h1>
 
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                {/* if chat is not an empty array then show the threads by mapping over the array else show nothing  */}
+                {chat &&
+                    chat.length > 0 &&
+                    chat.map((thread, index) => {
+                        return (
+                            <div className="w-full flex flex-col justify-start gap-4">
+                                <h3 className="font-bold text-lg flex justify-start items-center gap-4">
+                                    <div className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500">
+                                        <FiUser className="" />
+                                    </div>
+                                    {thread.prompt}
+                                </h3>
+                                <div className="flex justify-start items-center gap-2 bg-gray-200 h-fit p-4 rounded-md">
+                                    {thread?.output?.map((img, index) => {
+                                        return (
+                                            <img
+                                                className="self-start w-1/2 rounded-md"
+                                                src={img}
+                                                alt="image"
+                                            />
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })}
+
+                {/* <form className="w-full max-w-lg"> */}
+                {/* <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full px-3 mb-2">
                             <label
                                 className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
@@ -153,9 +288,9 @@ const mainChat = () => {
                                 )}
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <button
+                {/* <button
                         disabled={loading}
                         type="submit"
                         className={`${
@@ -163,27 +298,76 @@ const mainChat = () => {
                         } text-white text-center text-lg fundo-button w-full py-3 rounded-xl`}
                     >
                         {loading ? "Creating..." : "Create"}
-                    </button>
-                </form>
+                    </button> */}
+                {/* </form> */}
 
-                <div className="w-full rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-200 relative min-w-80 max-w-3xl">
+                {/* <div className="w-full rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-200 relative min-w-80 max-w-3xl">
                     <div className="relative">
                         <input
                             type="text"
-                            id="password"
-                            className="w-full pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none focus:border-blue-500 transition-colors"
+                            className="w-full pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none text-gray-600 focus:border-blue-500 transition-colors"
                             placeholder="Prompt here..."
                             onChange={(e) => {
                                 setOutfitPrompt(e.target.value);
                             }}
                         />
-                        <button className="block w-7 h-7 text-center text-xl leading-0 absolute top-2 right-2 text-gray-400 focus:outline-none hover:text-gray-200 transition-colors">
-                            <TbPhotoSearch className="w-full h-full" />
+                        <label htmlFor="fileInput" className="cursor-pointer">
+                            <button className="block w-7 h-7 text-center text-xl leading-0 absolute top-2 right-14 text-gray-400 focus:outline-none hover:text-gray-600 transition-colors">
+                                <TbPhotoSearch className="w-full h-full" />
+                            </button>
+                            <input
+                                type="file"
+                                id="fileInput"
+                                className="hidden"
+                                onChange={(e) => {
+                                    // Handle file upload here
+                                    // You can access the selected file from e.target.files
+                                }}
+                            />
+                        </label>
+
+                        <button className="block w-7 h-7 text-center text-xl leading-0 absolute top-2 right-2 text-gray-400 focus:outline-none hover:text-gray-600 transition-colors">
+                            <BsFillSendFill className="w-full h-full" />
+                        </button>
+                    </div>
+                </div> */}
+                <div className="w-full rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-200 relative min-w-80 max-w-3xl">
+                    <div className="relative">
+                        <input
+                            type="text"
+                            className="w-full pl-3 pr-10 py-2 border-2 border-gray-200 rounded-xl hover:border-gray-300 focus:outline-none text-gray-600 focus:border-blue-500 transition-colors"
+                            placeholder="Prompt here..."
+                            onChange={(e) => {
+                                setOutfitPrompt(e.target.value);
+                            }}
+                        />
+                        <label htmlFor="fileInput" className="cursor-pointer">
+                            <button className="block w-7 h-7 text-center text-xl leading-0 absolute top-2 right-14 text-gray-400 focus:outline-none hover:text-gray-600 transition-colors">
+                                <TbPhotoSearch className="w-full h-full" />
+                            </button>
+                            <input
+                                type="file"
+                                id="fileInput"
+                                className="hidden"
+                                onChange={(e) => {
+                                    setFile(e.target.files[0]);
+                                    // Handle file upload here
+                                    // You can access the selected file from e.target.files
+                                }}
+                                style={{ display: "none" }}
+                                // onChange={handleImageChange}
+                            />
+                        </label>
+                        <button
+                            className="block w-7 h-7 text-center text-xl leading-0 absolute top-2 right-2 text-gray-400 focus:outline-none hover:text-gray-600 transition-colors"
+                            onClick={handleSubmit}
+                        >
+                            <BsFillSendFill className="w-full h-full" />
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 };
 
