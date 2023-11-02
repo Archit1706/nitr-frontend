@@ -3,7 +3,8 @@ export type Hotspot = {
     yaw: number;
     type: string;
     text: string;
-    link: number;
+    link?: number;
+    info?: string;
 };
 
 export type Scene = {

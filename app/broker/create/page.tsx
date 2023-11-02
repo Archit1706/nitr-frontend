@@ -5,10 +5,16 @@ import ImageModal from '@/components/ImageModal'
 import { Scene } from '@/types/MainTypes'
 import React from 'react'
 import { RxCross2 } from 'react-icons/rx'
+import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import Lottie from 'react-lottie';
+import * as animationData from '../../../assets/create-lottie.json';
 
 type Props = {}
 
 const CreateProperty = (props: Props) => {
+
+    const router = useRouter();
 
     const [title, setTitle] = React.useState("");
     const [location, setLocation] = React.useState("");
@@ -51,29 +57,68 @@ const CreateProperty = (props: Props) => {
 
 
         setLoading(true);
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("location", location);
-        formData.append("bedrooms", bedrooms);
-        formData.append("prop_size", prop_size);
-        formData.append("price", price);
-        formData.append("desc", desc);
-        formData.append("amenities", JSON.stringify(amenities));
-        formData.append("scenes", JSON.stringify(scenes));
-        formData.append("typeOfProperty", typeOfProperty);
-        // const res = await fetch("/api/property/create", {
-        //     method: "POST",
-        //     body: formData
-        // });
-        // const data = await res.json();
-        // if (data.success) {
-        //     console.log(data);
-        //     window.location.href = "/broker/properties";
-        // } else {
-        //     console.log(data);
-        // }
+
+
+        const scenesWithBase64 = await Promise.all(
+            scenes.map(async (scene) => {
+                const imgBase64 = scene.img instanceof File ? await readFileAsBase64(scene.img) : scene.img;
+                return {
+                    ...scene,
+                    img: imgBase64,
+                };
+            })
+        );
+
+        const body = {
+            title,
+            location,
+            bedrooms,
+            prop_size,
+            price,
+            desc,
+            amenities,
+            scenes: scenesWithBase64,
+            typeOfProperty,
+        };
+
+        try {
+            const res = await axios.post("https://09ad-14-139-61-195.ngrok-free.app" + "/upload", body, {
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+            console.log("res", res);
+
+            alert("Property created successfully!");
+            router.push("/broker/properties");
+
+        } catch (e) {
+            console.log("error", e);
+            alert("Something went wrong!");
+        }
+
         setLoading(false);
     }
+
+
+    const readFileAsBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result as string);
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: 'xMidYMid slice'
+        }
+    };
+
 
 
     useEffect(() => {
@@ -99,10 +144,10 @@ const CreateProperty = (props: Props) => {
             }
 
             <div
-                className='flex flex-col justify-center items-center w-full bg-gray-100'
+                className='flex flex-col justify-center items-center w-full md:w-1/2 bg-gray-100'
             >
                 <h1 className='text-4xl font-bold'>Create Property</h1>
-                <div className="w-[90%] sm:w-[650px] max-sm:w-[90%] bg-white rounded-[10px] flex flex-col items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
+                <div className="w-[90%] sm:w-[650px] max-sm:w-[90%] bg-gray-50 rounded-xl flex flex-col items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
                     <form onSubmit={handleSubmit} className="w-full max-w-lg">
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -408,6 +453,15 @@ const CreateProperty = (props: Props) => {
                         </button>
                     </form>
                 </div>
+            </div>
+
+
+
+            <div className='hidden md:flex w-1/2 h-full items-center self-center justify-center'>
+                <Lottie options={defaultOptions}
+                    height={500}
+                    width={500}
+                />
             </div>
         </section>
     )

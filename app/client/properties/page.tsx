@@ -186,7 +186,7 @@ const CreateProperty = (props: Props) => {
 
     const fetchData = async () => {
         try {
-            const res = await axios('http://localhost:3000/api/properties')
+            const res = await axios("https://09ad-14-139-61-195.ngrok-free.app" + "properties")
             const data = res.data
             console.log(data)
         } catch (error) {
@@ -195,7 +195,7 @@ const CreateProperty = (props: Props) => {
     }
 
     useEffect(() => {
-        // fetchData()
+        fetchData()
     }, [])
 
     return (
