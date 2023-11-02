@@ -109,7 +109,19 @@ const CreateProperty = (props: Props) => {
             <div
                 className='flex flex-col justify-center items-center w-full bg-gray-200 p-4 md:p-8'
             >
-                <h1 className='text-3xl font-semibold self-start text-gray-800 mb-3'>Your Properties</h1>
+                <div
+                    className='flex justify-between items-center w-full'
+                >
+                    <h1 className='text-3xl font-semibold self-start text-gray-800 mb-3'>Your Properties</h1>
+                    <button
+                    onClick={()=>{
+                        router.push("/broker/create")
+                    }}
+                    className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                    >
+                        Create
+                    </button>
+                </div>
                 <div className=" bg-white rounded-[10px] flex flex-col w-full items-center justify-between md:p-10 max-h-screen overflow-y-scroll noscr">
                     <div className="container mx-auto px-4 sm:px-8">
                         <div className="py-8">
@@ -145,10 +157,10 @@ const CreateProperty = (props: Props) => {
                                                                     <div className="flex-shrink-0 w-6 h-6">
                                                                         <FaHouseCircleCheck className="w-full h-full rounded-full" />
                                                                     </div>
-                                                                    <div className="ml-3"
-                                                                    onClick={()=>{
-                                                                        router.push(`/properties/${property._id}`)
-                                                                    }}
+                                                                    <div className="ml-3 cursor-pointer font-semibold"
+                                                                        onClick={() => {
+                                                                            router.push(`/client/properties/${property._id}`)
+                                                                        }}
                                                                     >
                                                                         <p className="text-gray-900 whitespace-no-wrap">
                                                                             {property.title}
