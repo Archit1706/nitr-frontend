@@ -97,14 +97,14 @@ export default function Header() {
                                         Broker
                                     </Link>
                                 </li>
-                                {/* <li>
+                                <li>
                                     <Link
-                                        href="/"
+                                        href="/blueprint"
                                         className="font-medium hover:text-sky-500 text-gray-600 flex items-center transition duration-150 ease-in-out"
                                     >
-                                        Typosquatters
+                                        BluePrint
                                     </Link>
-                                </li> */}
+                                </li>
                                 <li>
                                     <UserButton afterSignOutUrl="/" />
                                 </li>

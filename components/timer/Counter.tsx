@@ -18,7 +18,7 @@ export const Counter = (props: Props) => {
     });
 
     useEffect(() => {
-        console.log("endDate",props?.endDate.$date);
+        // console.log("endDate",props?.endDate.$date);
         // let date = new Date(props?.endDate);
         // let year = date.getFullYear();
         // let month = date.getMonth() + 1;
@@ -27,7 +27,7 @@ export const Counter = (props: Props) => {
 
         // console.log(day);
 
-        if(!props?.endDate) return;
+        if (!props?.endDate) return;
 
         // setTimeout(() => setTimeLeft(calculateTimeLeft(new Date(props?.endDate))), 1000);
 

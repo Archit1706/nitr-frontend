@@ -139,6 +139,15 @@ export default function MobileMenu() {
                                     <span>Broker</span>
                                 </Link>
                             </li>
+                            <li>
+                                <Link
+                                    href="/blueprint"
+                                    className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2"
+                                    onClick={() => setMobileNavOpen(false)}
+                                >
+                                    <span>Blueprint</span>
+                                </Link>
+                            </li>
                         </ul>
                     )}
                 </Transition>

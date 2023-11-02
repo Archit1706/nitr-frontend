@@ -22,17 +22,17 @@ const mainChat = () => {
     const [open, setOpen] = useState(true); // sidebar open state
     const [file, setFile] = useState(true);
     const [chats, setChats] = useState<Thread[]>([
-        {
-            id: 1,
-            prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
-        },
+        // {
+        //     id: 1,
+        //     prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
+        // },
     ]);
 
     const [title, setTitle] = useState("");
 
     const [loading, setLoading] = useState(false);
 
-    const [images, setImages] = useState<File[]>([]);
+    // const [images, setImages] = useState<File[]>([]);
 
     const [showImageModal, setShowImageModal] = useState(false);
 
@@ -44,18 +44,18 @@ const mainChat = () => {
             id: 1,
             prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
             output: [
-                "https://picsum.photos/id/23/300/300",
-                "https://picsum.photos/id/2/300/300",
+                "https://replicate.delivery/pbxt/Z6YKFv7QSlYOPJ9U2JpgoiuZPdeXohnaIWcEfwaeaqfrz3QHB/out-0.png",
+                "https://replicate.delivery/pbxt/Z6YKFv7QSlYOPJ9U2JpgoiuZPdeXohnaIWcEfwaeaqfrz3QHB/out-0.png",
             ],
         },
-        {
-            id: 2,
-            prompt: "Give me some ideas for my living room. I want to use a modern look and feel.",
-            output: [
-                "https://picsum.photos/id/23/300/300",
-                "https://picsum.photos/id/2/300/300",
-            ],
-        },
+        // {
+        //     id: 2,
+        //     prompt: "Give me some ideas for my living room. I want to use a modern look and feel.",
+        //     output: [
+        //         "https://picsum.photos/id/23/300/300",
+        //         "https://picsum.photos/id/2/300/300",
+        //     ],
+        // },
         // {
         //     id: 3,
         //     prompt: "",
@@ -69,29 +69,35 @@ const mainChat = () => {
     ]);
     const [message, setMessage] = useState({
         id: 1,
-        prompt: "",
-        output: ["", ""],
+        prompt: "Give me suggestions based on Rajasthani styled architecture for my Bedroom. Use Aesthetic look and color palette.",
+        output: [
+            "https://replicate.delivery/pbxt/Z6YKFv7QSlYOPJ9U2JpgoiuZPdeXohnaIWcEfwaeaqfrz3QHB/out-0.png",
+            "https://replicate.delivery/pbxt/Z6YKFv7QSlYOPJ9U2JpgoiuZPdeXohnaIWcEfwaeaqfrz3QHB/out-0.png",
+        ],
     });
+
+    const [images, setImages] = useState([]);
 
     // send prompt to the backend api in body and get the response and store it in message.response
     const handleSubmit = () => {
-        fetch(`/api/chatbot`, {
+        fetch(`${process.env.NEXT_PUBLIC_NGROK}/chat?prompt=${outfitPrompt}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ prompt: outfitPrompt, num_outputs: 2 }),
+            body: JSON.stringify({ prompt: outfitPrompt }),
         })
             .then((res) => {
                 res.json().then((data) => {
-                    console.log(data);
+                    console.log(data.output);
                     // setChat((prev) => [...prev, data]);
                     setMessage({
                         id: 1,
                         prompt: outfitPrompt,
-                        output: data,
+                        output: data.output,
                     });
-                    setChat((prev) => [...prev, message]);
+                    setImages(data.output);
+                    // setChat((prev) => [...prev, message]);
                 });
             })
             .catch((err) => {
@@ -152,26 +158,23 @@ const mainChat = () => {
                 </div>
             </div>
             <div
-                className={`flex flex-col justify-center items-center h-screen transition-all duration-300 rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-600 max-h-screen relative overflow-y-auto mt-20 ${
+                className={`flex flex-col justify-center items-center transition-all duration-300 rounded-xl bg-white/60 hover:bg-white/70 shadow-gray-300 shadow-lg p-4 text-gray-600 h-fit relative overflow-y-auto mt-20 ${
                     open ? "w-4/5" : "w-full"
                 }`}
             >
                 <h1 className="text-4xl font-bold">Chat with AI</h1>
 
                 {/* if chat is not an empty array then show the threads by mapping over the array else show nothing  */}
-                {chat &&
-                    chat.length > 0 &&
-                    chat.map((thread, index) => {
-                        return (
-                            <div className="w-full flex flex-col justify-start gap-4">
-                                <h3 className="font-bold text-lg flex justify-start items-center gap-4">
-                                    <div className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500">
-                                        <FiUser className="" />
-                                    </div>
-                                    {thread.prompt}
-                                </h3>
-                                <div className="flex justify-start items-center gap-2 bg-gray-200 h-fit p-4 rounded-md">
-                                    {thread?.output?.map((img, index) => {
+                {outfitPrompt && images && images.length > 0 && (
+                    <div className="w-full flex flex-col justify-start gap-4">
+                        <h3 className="font-bold text-lg flex justify-start items-center gap-4">
+                            <div className="bg-teal-800/80 text-gray-300 hover:bg-teal-800 hover:text-gray-200 rounded-md border border-dashed cursor-pointer p-4 ml-4 transition-all duration-500">
+                                <FiUser className="" />
+                            </div>
+                            {outfitPrompt}
+                        </h3>
+                        <div className="flex justify-start items-center gap-2 bg-gray-200 h-fit p-4 rounded-md">
+                            {/* {thread?.output?.map((img, index) => {
                                         return (
                                             <img
                                                 className="self-start w-1/2 rounded-md"
@@ -179,11 +182,20 @@ const mainChat = () => {
                                                 alt="image"
                                             />
                                         );
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
+                                    })} */}
+
+                            {images.map((img, index) => {
+                                return (
+                                    <img
+                                        className="self-start w-1/2 rounded-md"
+                                        src={img}
+                                        alt="image"
+                                    />
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
 
                 {/* <form className="w-full max-w-lg"> */}
                 {/* <div className="flex flex-wrap -mx-3 mb-6">
