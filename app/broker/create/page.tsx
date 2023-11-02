@@ -1,19 +1,18 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import ImageModal from '@/components/ImageModal'
-import { Scene } from '@/types/MainTypes'
-import React from 'react'
-import { RxCross2 } from 'react-icons/rx'
-import axios from 'axios'
-import { useRouter } from 'next/navigation'
-import Lottie from 'react-lottie';
-import * as animationData from '../../../assets/create-lottie.json';
+import { useEffect } from "react";
+import ImageModal from "@/components/ImageModal";
+import { Scene } from "@/types/MainTypes";
+import React from "react";
+import { RxCross2 } from "react-icons/rx";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Lottie from "react-lottie";
+import * as animationData from "../../../assets/create-lottie.json";
 
-type Props = {}
+type Props = {};
 
 const CreateProperty = (props: Props) => {
-
     const router = useRouter();
 
     const [title, setTitle] = React.useState("");
@@ -31,7 +30,9 @@ const CreateProperty = (props: Props) => {
 
     const [showImageModal, setShowImageModal] = React.useState(false);
 
-    const [selectedScene, setSelectedScene] = React.useState<Scene | null>(null);
+    const [selectedScene, setSelectedScene] = React.useState<Scene | null>(
+        null
+    );
 
     const [typeOfProperty, setTypeOfProperty] = React.useState("sale");
 
@@ -52,16 +53,17 @@ const CreateProperty = (props: Props) => {
             desc,
             amenities,
             scenes,
-            typeOfProperty
+            typeOfProperty,
         });
-
 
         setLoading(true);
 
-
         const scenesWithBase64 = await Promise.all(
             scenes.map(async (scene) => {
-                const imgBase64 = scene.img instanceof File ? await readFileAsBase64(scene.img) : scene.img;
+                const imgBase64 =
+                    scene.img instanceof File
+                        ? await readFileAsBase64(scene.img)
+                        : scene.img;
                 return {
                     ...scene,
                     img: imgBase64,
@@ -82,24 +84,26 @@ const CreateProperty = (props: Props) => {
         };
 
         try {
-            const res = await axios.post("https://09ad-14-139-61-195.ngrok-free.app" + "/upload", body, {
-                headers: {
-                    "Content-Type": "application/json",
+            const res = await axios.post(
+                "https://09ad-14-139-61-195.ngrok-free.app" + "/upload",
+                body,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
                 }
-            });
+            );
             console.log("res", res);
 
             alert("Property created successfully!");
             router.push("/broker/properties");
-
         } catch (e) {
             console.log("error", e);
             alert("Something went wrong!");
         }
 
         setLoading(false);
-    }
-
+    };
 
     const readFileAsBase64 = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
@@ -115,38 +119,31 @@ const CreateProperty = (props: Props) => {
         autoplay: true,
         animationData: animationData,
         rendererSettings: {
-            preserveAspectRatio: 'xMidYMid slice'
-        }
+            preserveAspectRatio: "xMidYMid slice",
+        },
     };
-
-
 
     useEffect(() => {
         console.log("scene updated", scenes);
-    }, [scenes])
+    }, [scenes]);
 
     return (
-        <section className='flex w-full'>
+        <section className="flex w-full">
+            {showImageModal && selectedScene && (
+                <ImageModal
+                    selectedScene={selectedScene}
+                    setSelectedScene={setSelectedScene}
+                    scenes={scenes}
+                    setScenes={setScenes}
+                    toggleCreateModal={() => {
+                        setSelectedScene(null);
+                        setShowImageModal(false);
+                    }}
+                />
+            )}
 
-            {
-                showImageModal && selectedScene && (
-                    <ImageModal
-                        selectedScene={selectedScene}
-                        setSelectedScene={setSelectedScene}
-                        scenes={scenes}
-                        setScenes={setScenes}
-                        toggleCreateModal={() => {
-                            setSelectedScene(null);
-                            setShowImageModal(false);
-                        }}
-                    />
-                )
-            }
-
-            <div
-                className='flex flex-col justify-center items-center w-full md:w-1/2 bg-gray-100'
-            >
-                <h1 className='text-4xl font-bold'>Create Property</h1>
+            <div className="flex flex-col justify-center items-center w-full md:w-1/2 bg-gray-100">
+                <h1 className="text-4xl font-bold">Create Property</h1>
                 <div className="w-[90%] sm:w-[650px] max-sm:w-[90%] bg-gray-50 rounded-xl flex flex-col items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
                     <form onSubmit={handleSubmit} className="w-full max-w-lg">
                         <div className="flex flex-wrap -mx-3 mb-6">
@@ -163,7 +160,7 @@ const CreateProperty = (props: Props) => {
                                     onChange={(e) => setTitle(e.target.value)}
                                     id="topic"
                                     type="text"
-                                    placeholder="property name"
+                                    placeholder="Property Name"
                                     required
                                 />
                             </div>
@@ -177,16 +174,16 @@ const CreateProperty = (props: Props) => {
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     value={location}
-                                    onChange={(e) => setLocation(e.target.value)}
+                                    onChange={(e) =>
+                                        setLocation(e.target.value)
+                                    }
                                     id="address"
                                     type="text"
-                                    placeholder="property address"
+                                    placeholder="Property Address"
                                     required
                                 />
                             </div>
                         </div>
-
-
 
                         <div className="flex flex-wrap -mx-3 mb-6">
                             <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
@@ -199,10 +196,12 @@ const CreateProperty = (props: Props) => {
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     value={prop_size}
-                                    onChange={(e) => setPropSize(e.target.value)}
+                                    onChange={(e) =>
+                                        setPropSize(e.target.value)
+                                    }
                                     id="property_size"
                                     type="text"
-                                    placeholder="property size"
+                                    placeholder="Property Size (Sq. Ft.)"
                                     required
                                 />
                             </div>
@@ -216,7 +215,9 @@ const CreateProperty = (props: Props) => {
                                 <input
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     value={bedrooms}
-                                    onChange={(e) => setBedrooms(e.target.value)}
+                                    onChange={(e) =>
+                                        setBedrooms(e.target.value)
+                                    }
                                     id="bedrooms"
                                     type="text"
                                     placeholder="bedrooms"
@@ -236,7 +237,7 @@ const CreateProperty = (props: Props) => {
                                     onChange={(e) => setPrice(e.target.value)}
                                     id="price"
                                     type="text"
-                                    placeholder="property price"
+                                    placeholder="Property Price (₹)"
                                     required
                                 />
                             </div>
@@ -255,7 +256,7 @@ const CreateProperty = (props: Props) => {
                                     value={desc}
                                     onChange={(e) => setDesc(e.target.value)}
                                     id="description"
-                                    placeholder="property description"
+                                    placeholder="Property Description"
                                 />
                             </div>
                         </div>
@@ -275,24 +276,29 @@ const CreateProperty = (props: Props) => {
                                             minLength={3}
                                             className="appearance-none block w-full bg-gray-200 text-gray-700 border  border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white peer"
                                             type="text"
-                                            placeholder="Type something"
+                                            placeholder="A/C, Pool"
                                             value={newAmenity}
-                                            onChange={(e) => setNewAmenity(e.target.value)}
+                                            onChange={(e) =>
+                                                setNewAmenity(e.target.value)
+                                            }
                                         />
                                         <p className="text-red-500 text-xs italic hidden peer-invalid:block">
                                             less than 3 characters
                                         </p>
                                     </div>
                                     <div
-                                        className="text-center py-3 px-8 text-sm font-medium bg-peach-dark text-gray-100 rounded-2xl cursor-pointer sm:w-min hover:bg-peach hover:text-gray-50 bg-purple-400 hover:opacity-90"
+                                        className="text-center py-3 px-8 text-sm font-medium bg-peach-dark text-gray-100 rounded-2xl cursor-pointer sm:w-min hover:bg-peach hover:text-gray-50 bg-teal-400 hover:opacity-90"
                                         onClick={() => {
                                             if (newAmenity.length >= 3) {
-                                                setAmenities((prev) => [...prev, newAmenity]);
+                                                setAmenities((prev) => [
+                                                    ...prev,
+                                                    newAmenity,
+                                                ]);
                                                 setNewAmenity("");
                                             }
                                         }}
                                     >
-                                        <span className='text-white'>Add</span>
+                                        <span className="text-white">Add</span>
                                     </div>
                                 </div>
                                 <div className="flex flex-wrap -mx-1 overflow-hidden">
@@ -309,8 +315,16 @@ const CreateProperty = (props: Props) => {
                                                     <button
                                                         className="text-gray-500 hover:text-gray-600 hover:opacity-70"
                                                         onClick={() => {
-                                                            setAmenities((prev) =>
-                                                                prev.filter((t, i) => i !== index)
+                                                            setAmenities(
+                                                                (prev) =>
+                                                                    prev.filter(
+                                                                        (
+                                                                            t,
+                                                                            i
+                                                                        ) =>
+                                                                            i !==
+                                                                            index
+                                                                    )
                                                             );
                                                         }}
                                                     >
@@ -333,39 +347,63 @@ const CreateProperty = (props: Props) => {
                                     Scenes
                                 </label>
                                 <div className="flex flex-col items-center justify-center w-full space-y-4">
-                                    {
-                                        scenes?.length != 0 && (
-                                            <div className="flex gap-2 flex-wrap">
-                                                {scenes.map((scene, index) => {
-                                                    return (
-                                                        <div key={index} className="relative w-32 rounded-lg shadow-md">
-                                                            <img
-                                                                onClick={() => {
-                                                                    setSelectedScene(scene);
-                                                                    setShowImageModal(true);
-                                                                }}
-                                                                className="w-32 h-32 object-cover rounded-xl"
-                                                                src={!scene.img ? "" : (scene.img instanceof File ? URL.createObjectURL(scene.img) : scene.img)}
-                                                                alt="Image"
-                                                            />
-                                                            <button
-                                                                className="absolute top-0 right-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
-                                                                onClick={() => {
-                                                                    setScenes((prev) => prev.filter((t, i) => i !== index));
-                                                                }}
-                                                            >
-                                                                <RxCross2 className="w-4 h-4 text-white" />
-                                                            </button>
-                                                            <input
-                                                                type="text"
-                                                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mt-3 leading-tight focus:outline-none focus:bg-white"
-                                                            />
-                                                        </div>
-                                                    )
-                                                })}
-                                            </div>
-                                        )
-                                    }
+                                    {scenes?.length != 0 && (
+                                        <div className="flex gap-2 flex-wrap">
+                                            {scenes.map((scene, index) => {
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className="relative w-32 rounded-lg shadow-md"
+                                                    >
+                                                        <img
+                                                            onClick={() => {
+                                                                setSelectedScene(
+                                                                    scene
+                                                                );
+                                                                setShowImageModal(
+                                                                    true
+                                                                );
+                                                            }}
+                                                            className="w-32 h-32 object-cover rounded-xl"
+                                                            src={
+                                                                !scene.img
+                                                                    ? ""
+                                                                    : scene.img instanceof
+                                                                      File
+                                                                    ? URL.createObjectURL(
+                                                                          scene.img
+                                                                      )
+                                                                    : scene.img
+                                                            }
+                                                            alt="Image"
+                                                        />
+                                                        <button
+                                                            className="absolute top-0 right-0 w-8 h-8 bg-red-500 rounded-full flex items-center justify-center"
+                                                            onClick={() => {
+                                                                setScenes(
+                                                                    (prev) =>
+                                                                        prev.filter(
+                                                                            (
+                                                                                t,
+                                                                                i
+                                                                            ) =>
+                                                                                i !==
+                                                                                index
+                                                                        )
+                                                                );
+                                                            }}
+                                                        >
+                                                            <RxCross2 className="w-4 h-4 text-white" />
+                                                        </button>
+                                                        <input
+                                                            type="text"
+                                                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-4 mt-3 leading-tight focus:outline-none focus:bg-white"
+                                                        />
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    )}
 
                                     {scenes.length < 20 && (
                                         <label
@@ -388,7 +426,9 @@ const CreateProperty = (props: Props) => {
                                                     ></path>
                                                 </svg>
                                                 <p className="mb-2 text-sm text-gray-500">
-                                                    <span className="font-semibold">Click to upload</span>{" "}
+                                                    <span className="font-semibold">
+                                                        Click to upload
+                                                    </span>{" "}
                                                     or drag and drop
                                                 </p>
                                                 <p className="text-xs text-gray-500">
@@ -402,10 +442,19 @@ const CreateProperty = (props: Props) => {
                                                             ...prev,
                                                             {
                                                                 id: scenes.length,
-                                                                img: e.target.files ? e.target.files[0] : "",
-                                                                text: e.target.files ? e.target.files[0].name.split(".")[0] : "",
-                                                                hotspots: []
-                                                            }
+                                                                img: e.target
+                                                                    .files
+                                                                    ? e.target
+                                                                          .files[0]
+                                                                    : "",
+                                                                text: e.target
+                                                                    .files
+                                                                    ? e.target.files[0].name.split(
+                                                                          "."
+                                                                      )[0]
+                                                                    : "",
+                                                                hotspots: [],
+                                                            },
                                                         ]);
                                                     }
                                                 }}
@@ -431,9 +480,11 @@ const CreateProperty = (props: Props) => {
                                 <select
                                     className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                                     value={typeOfProperty}
-                                    onChange={(e) => setTypeOfProperty(e.target.value)}
+                                    onChange={(e) =>
+                                        setTypeOfProperty(e.target.value)
+                                    }
                                     id="type"
-                                    placeholder="property description"
+                                    placeholder="Property Description"
                                 >
                                     <option value="sale">Sale</option>
                                     <option value="rent">Rent</option>
@@ -442,12 +493,12 @@ const CreateProperty = (props: Props) => {
                             </div>
                         </div>
 
-
                         <button
                             disabled={loading}
                             type="submit"
-                            className={`${loading && "opacity-80"
-                                } text-white text-center text-lg bg-purple-400 w-full py-3 rounded-xl`}
+                            className={`${
+                                loading && "opacity-80"
+                            } text-white text-center text-lg bg-teal-400 w-full py-3 rounded-xl`}
                         >
                             {loading ? "Creating..." : "Create"}
                         </button>
@@ -455,16 +506,11 @@ const CreateProperty = (props: Props) => {
                 </div>
             </div>
 
-
-
-            <div className='hidden md:flex w-1/2 h-full items-center self-center justify-center'>
-                <Lottie options={defaultOptions}
-                    height={500}
-                    width={500}
-                />
+            <div className="hidden md:flex w-1/2 h-full items-center self-center justify-center">
+                <Lottie options={defaultOptions} height={500} width={500} />
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default CreateProperty
+export default CreateProperty;

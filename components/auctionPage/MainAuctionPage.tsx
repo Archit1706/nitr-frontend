@@ -12,7 +12,7 @@ import ProductCard from "../../components/Cards/ProductCard";
 import ReviewCard from "../Cards/ReviewCard";
 import Table from "../table";
 import TempImg from "@/assets/img/temp.jpg";
-import { Product, PropertyType } from "@/types/MainTypes";
+import { Product, Product, PropertyType } from "@/types/MainTypes";
 import Link from "next/link";
 import Card from "../ui/Card";
 import { Pannellum } from "pannellum-react";
@@ -25,6 +25,7 @@ import io from "socket.io-client";
 import { toast } from "react-toastify";
 let socket: any;
 const CONNECTION_PORT = process.env.NEXT_PUBLIC_CONNECTION_URL || "";
+import AuctionHistory from "@/components/auctionPage/AuctionHistory";
 
 type Props = {
     product: Product;
@@ -67,6 +68,10 @@ const MainAuctionPage = (props: Props) => {
     const [bidList, setBidList] = useState([]);
 
     const [userCount, setUserCount] = useState(0);
+
+    useEffect(() => {
+        console.log("bid list----> ", bidList);
+    }, [bidList]);
 
     const [properties, setProperties] = React.useState<PropertyType[]>([
         {
@@ -244,7 +249,9 @@ const MainAuctionPage = (props: Props) => {
             console.log(data);
             setUserCount(data.userCount);
             setPrice(Number(data.price));
+            console.table(bidList);
             setBidList(data.history);
+            console.table(bidList);
         });
     });
 
@@ -678,7 +685,8 @@ const MainAuctionPage = (props: Props) => {
                 {props?.product?.specs && (
                     <Specs specifications={props?.product?.specs} />
                 )} */}
-                <Table data={bidList} />
+                {/* <Table data={bidList} /> */}
+                <AuctionHistory />
             </div>
             <div className="flex items-center flex-col md:flex-row gap-8 mt-6 md:mt-12">
                 {/* <Chat /> */}
