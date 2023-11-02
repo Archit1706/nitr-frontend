@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Counter } from "@/components/timer/Counter";
 import React, { useState, useEffect } from "react";
@@ -10,19 +10,20 @@ import { BsBookmark } from "react-icons/bs";
 // import Specs from "./Specs";
 import ProductCard from "../../components/Cards/ProductCard";
 import ReviewCard from "../Cards/ReviewCard";
+import Table from "../table";
 import TempImg from "@/assets/img/temp.jpg";
 import { Product, PropertyType } from "@/types/MainTypes";
 import Link from "next/link";
 import Card from "../ui/Card";
 import { Pannellum } from "pannellum-react";
 
-import Test from '../../assets/real-estate/realEstate1.jpg'
+import Test from "../../assets/real-estate/realEstate1.jpg";
 import axios from "axios";
-
-// import io from "socket.io-client";
+import { useUser } from "@clerk/nextjs";
+import io from "socket.io-client";
 // import FAQ from "./FAQ";
-// import { toast } from "react-toastify";
-// let socket: any;
+import { toast } from "react-toastify";
+let socket: any;
 const CONNECTION_PORT = process.env.NEXT_PUBLIC_CONNECTION_URL || "";
 
 type Props = {
@@ -32,7 +33,10 @@ type Props = {
     // color: Colour
 };
 const MainAuctionPage = (props: Props) => {
-    const [rotate, setRotate] = useState(false);
+    const { isLoaded, isSignedIn, user } = useUser();
+    const [rotate, setRotate] = useState(
+        `mongodb+srv://admin:admin@cluster0.qs1hl6j.mongodb.net/codeutsav?retryWrites=true&w=majority`
+    );
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [count, setCount] = useState(1000002);
     const [isBookmarked, setIsBookmarked] = useState(false);
@@ -52,7 +56,7 @@ const MainAuctionPage = (props: Props) => {
     };
 
     const [room, setRoom] = useState();
-    const [userName, setUserName] = useState("user");
+    // const [userName, setUserName] = useState("user");
     const [_, update] = useState(1);
 
     const [price, setPrice] = useState(0);
@@ -66,197 +70,182 @@ const MainAuctionPage = (props: Props) => {
 
     const [properties, setProperties] = React.useState<PropertyType[]>([
         {
-            "title": "Ramnivas",
-            "location": "Malad, Mumbai",
-            "bedrooms": "2",
-            "prop_size": "600",
-            "price": "2000000",
-            "desc": "New property on sale!",
-            "typeOfProperty": "rent",
-            "amenities": [
-                "A/C",
-                "Pool",
-                "Sea View"
-            ],
-            "scenes": [
+            title: "Ramnivas",
+            location: "Malad, Mumbai",
+            bedrooms: "2",
+            prop_size: "600",
+            price: "2000000",
+            desc: "New property on sale!",
+            typeOfProperty: "rent",
+            amenities: ["A/C", "Pool", "Sea View"],
+            scenes: [
                 {
-                    "id": 0,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "test",
-                    "hotspots": [
+                    id: 0,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "test",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 174.74930458511992,
-                            "yaw": 21.631147406159144,
-                            "link": 1
-                        }
-                    ]
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 174.74930458511992,
+                            yaw: 21.631147406159144,
+                            link: 1,
+                        },
+                    ],
                 },
                 {
-                    "id": 1,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "nit",
-                    "hotspots": [
+                    id: 1,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "nit",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 0.09009231299632514,
-                            "yaw": 10.723411299831989,
-                            "link": 0
-                        }
-                    ]
-                }
-            ]
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 0.09009231299632514,
+                            yaw: 10.723411299831989,
+                            link: 0,
+                        },
+                    ],
+                },
+            ],
         },
         {
-            "title": "Ramnivas 2",
-            "location": "Malad, Mumbai",
-            "bedrooms": "2",
-            "prop_size": "600",
-            "price": "2000000",
-            "desc": "New property on sale!",
-            "typeOfProperty": "sale",
-            "amenities": [
-                "A/C",
-                "Pool",
-                "Sea View"
-            ],
-            "scenes": [
+            title: "Ramnivas 2",
+            location: "Malad, Mumbai",
+            bedrooms: "2",
+            prop_size: "600",
+            price: "2000000",
+            desc: "New property on sale!",
+            typeOfProperty: "sale",
+            amenities: ["A/C", "Pool", "Sea View"],
+            scenes: [
                 {
-                    "id": 0,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "test",
-                    "hotspots": [
+                    id: 0,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "test",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 174.74930458511992,
-                            "yaw": 21.631147406159144,
-                            "link": 1
-                        }
-                    ]
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 174.74930458511992,
+                            yaw: 21.631147406159144,
+                            link: 1,
+                        },
+                    ],
                 },
                 {
-                    "id": 1,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "nit",
-                    "hotspots": [
+                    id: 1,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "nit",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 0.09009231299632514,
-                            "yaw": 10.723411299831989,
-                            "link": 0
-                        }
-                    ]
-                }
-            ]
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 0.09009231299632514,
+                            yaw: 10.723411299831989,
+                            link: 0,
+                        },
+                    ],
+                },
+            ],
         },
         {
-            "title": "Ramnivas 3",
-            "location": "Malad, Mumbai",
-            "bedrooms": "2",
-            "prop_size": "600",
-            "price": "2000000",
-            "desc": "New property on sale!",
-            "typeOfProperty": "bid",
-            "amenities": [
-                "A/C",
-                "Pool",
-                "Sea View"
-            ],
-            "scenes": [
+            title: "Ramnivas 3",
+            location: "Malad, Mumbai",
+            bedrooms: "2",
+            prop_size: "600",
+            price: "2000000",
+            desc: "New property on sale!",
+            typeOfProperty: "bid",
+            amenities: ["A/C", "Pool", "Sea View"],
+            scenes: [
                 {
-                    "id": 0,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "test",
-                    "hotspots": [
+                    id: 0,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "test",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 174.74930458511992,
-                            "yaw": 21.631147406159144,
-                            "link": 1
-                        }
-                    ]
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 174.74930458511992,
+                            yaw: 21.631147406159144,
+                            link: 1,
+                        },
+                    ],
                 },
                 {
-                    "id": 1,
-                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
-                    "text": "nit",
-                    "hotspots": [
+                    id: 1,
+                    img: "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    text: "nit",
+                    hotspots: [
                         {
-                            "type": "custom",
-                            "text": "Kitchen",
-                            "pitch": 0.09009231299632514,
-                            "yaw": 10.723411299831989,
-                            "link": 0
-                        }
-                    ]
-                }
-            ]
-        }
+                            type: "custom",
+                            text: "Kitchen",
+                            pitch: 0.09009231299632514,
+                            yaw: 10.723411299831989,
+                            link: 0,
+                        },
+                    ],
+                },
+            ],
+        },
     ]);
 
     const fetchData = async () => {
         try {
-            const res = await axios('http://localhost:3000/api/properties')
-            const data = res.data
-            console.log(data)
+            const res = await axios("http://localhost:3000/api/properties");
+            const data = res.data;
+            console.log(data);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
         // fetchData()
-    }, [])
-
-
+    }, []);
 
     useEffect(() => {
-
         // check for window
         if (typeof window !== "undefined") {
-            window.location.href.substr(window.location.href.length - 24)
+            window.location.href.substr(window.location.href.length - 24);
         }
 
-        // socket = io(CONNECTION_PORT);
-        // socket.emit(
-        //     "join_room",
-        //     window.location.href.substr(window.location.href.length - 24)
-        // );
+        socket = io(CONNECTION_PORT);
+        socket.emit(
+            "join_room",
+            window.location.href.substr(window.location.href.length - 24)
+        );
     }, [CONNECTION_PORT]);
 
     useEffect(() => {
-        // socket.once("connectToRoom", (data: any) => {
-        //     console.log(data);
-        //     setUserCount(data.userCount);
-        //     setPrice(data.price);
-        //     setBidAmt(data.price + 100);
-        //     setBidList(data.history);
-        // });
-        // return () => socket.off("connectToRoom");
+        socket.once("connectToRoom", (data: any) => {
+            console.log(data);
+            setUserCount(data.userCount);
+            setPrice(data.price);
+            setBidAmt(data.price + 100);
+            setBidList(data.history);
+        });
+        return () => socket.off("connectToRoom");
     });
 
     useEffect(() => {
-        // socket.once("receive_message", (data: any) => {
-        //     const temp = messageList;
-        //     temp.push(data);
-        //     setMessageList(temp);
-        //     update(Math.random());
-        // });
-        // return () => socket.off("receive_message");
+        socket.once("receive_message", (data: any) => {
+            const temp = messageList;
+            temp.push(data);
+            setMessageList(temp);
+            update(Math.random());
+        });
+        return () => socket.off("receive_message");
     });
 
     useEffect(() => {
-        // socket.on("recieve_bid", (data: any) => {
-        //     console.log(data);
-        //     setUserCount(data.userCount);
-        //     setPrice(Number(data.price));
-        //     setBidList(data.history);
-        // });
+        socket.on("recieve_bid", (data: any) => {
+            console.log(data);
+            setUserCount(data.userCount);
+            setPrice(Number(data.price));
+            setBidList(data.history);
+        });
     });
 
     const sendBid = (amount: number) => {
@@ -265,18 +254,17 @@ const MainAuctionPage = (props: Props) => {
             content: {
                 date: Date.now(),
                 amount: amount,
-                name: userName,
+                name: user?.firstName + " " + user?.lastName,
             },
             reverse: props.product.category === "Government",
         };
-        // socket.emit("bid", messageContent);
+        socket.emit("bid", messageContent);
         setPrice(amount);
     };
 
     return (
         <div className="2xl:container 2xl:mx-auto lg:py-16 lg:px-20 md:py-12 md:px-6 py-9 px-4 font-Roboto">
             <div className="flex justify-center items-center md:items-stretch lg:flex-row flex-col gap-8">
-
                 {/* <!-- Description Div --> */}
 
                 <div className="w-full sm:w-96 md:w-8/12 lg:w-6/12 items-center">
@@ -387,7 +375,7 @@ const MainAuctionPage = (props: Props) => {
                                         day: "numeric",
                                         hour: "numeric",
                                         minute: "numeric",
-                                        hour12: true
+                                        hour12: true,
                                     })}
                                 {/* June 30, 2023 12:00 am */}
                             </span>
@@ -397,7 +385,9 @@ const MainAuctionPage = (props: Props) => {
                     {/* <p className="font-light">Bids : <span className="font-bold">23</span></p> */}
                     {/*  timer */}
                     <div className="flex flex-row justify-between items-center mt-6">
-                        {props.product?.soldDate && <Counter endDate={props.product?.soldDate as any} />}
+                        {props.product?.soldDate && (
+                            <Counter endDate={props.product?.soldDate as any} />
+                        )}
                     </div>
 
                     <div className="flex flex-row justify-start space-x-2 mt-8">
@@ -458,8 +448,9 @@ const MainAuctionPage = (props: Props) => {
                     </div>
 
                     <div
-                        className={`${isModalOpen ? "" : "hidden"
-                            } z-20 absolute top-0 overflow-hidden bottom-0 left-0 right-0 bg-[rgb(0,0,0,0.5)] flex items-center justify-center`}
+                        className={`${
+                            isModalOpen ? "" : "hidden"
+                        } z-20 absolute top-0 overflow-hidden bottom-0 left-0 right-0 bg-[rgb(0,0,0,0.5)] flex items-center justify-center`}
                     >
                         <div
                             id="info-popup"
@@ -626,11 +617,21 @@ const MainAuctionPage = (props: Props) => {
                             showControls
                             showFullscreenCtrl
                             showZoomCtrl
-                            onLoad={() => { console.log("panorama loaded"); }}
-                            onScenechange={(id: any) => { console.log("Scene has change on " + id); }}
-                            onScenechangefadedone={() => { console.log("panorama loaded"); }}
-                            onError={(err: any) => { console.log("Error", err); }}
-                            onErrorcleared={() => { console.log("Error Cleared"); }}
+                            onLoad={() => {
+                                console.log("panorama loaded");
+                            }}
+                            onScenechange={(id: any) => {
+                                console.log("Scene has change on " + id);
+                            }}
+                            onScenechangefadedone={() => {
+                                console.log("panorama loaded");
+                            }}
+                            onError={(err: any) => {
+                                console.log("Error", err);
+                            }}
+                            onErrorcleared={() => {
+                                console.log("Error Cleared");
+                            }}
                             hotspotDebug={false}
                         >
                             {
@@ -648,8 +649,6 @@ const MainAuctionPage = (props: Props) => {
                                 //         hotspotIcon(hotSpotDiv);
                                 //     }}
                                 // />
-
-
                                 // selectedScene?.hotspots.map((hotSpot, index) => (
                                 //     <Pannellum.Hotspot
                                 //         key={index}
@@ -679,6 +678,7 @@ const MainAuctionPage = (props: Props) => {
                 {props?.product?.specs && (
                     <Specs specifications={props?.product?.specs} />
                 )} */}
+                <Table data={bidList} />
             </div>
             <div className="flex items-center flex-col md:flex-row gap-8 mt-6 md:mt-12">
                 {/* <Chat /> */}

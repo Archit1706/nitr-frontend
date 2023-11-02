@@ -67,7 +67,7 @@ const mainChat = () => {
         //     output: ["", ""],
         // },
     ]);
-    const [message, setMessage] = useState<Thread>({
+    const [message, setMessage] = useState({
         id: 1,
         prompt: "",
         output: ["", ""],
@@ -75,17 +75,23 @@ const mainChat = () => {
 
     // send prompt to the backend api in body and get the response and store it in message.response
     const handleSubmit = () => {
-        fetch(`${process.env.NEXT_PUBLIC_NGROK}/api/predict`, {
+        fetch(`/api/chatbot`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ prompt: outfitPrompt }),
+            body: JSON.stringify({ prompt: outfitPrompt, num_outputs: 2 }),
         })
             .then((res) => {
                 res.json().then((data) => {
                     console.log(data);
-                    setChat((prev) => [...prev, data]);
+                    // setChat((prev) => [...prev, data]);
+                    setMessage({
+                        id: 1,
+                        prompt: outfitPrompt,
+                        output: data,
+                    });
+                    setChat((prev) => [...prev, message]);
                 });
             })
             .catch((err) => {

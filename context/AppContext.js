@@ -89,7 +89,8 @@ const AppProvider = ({ children }) => {
       redirect: 'follow'
     };
 
-    fetch("https://auction-backend.sidd065.repl.co/api/users/admin", requestOptions)
+    // fetch("https://auction-backend.sidd065.repl.co/api/users/admin", requestOptions)
+    fetch("http://localhost:5000/api/users/admin", requestOptions)
       .then(response => response.json())
       .then(result => {
         if (result.success) {
