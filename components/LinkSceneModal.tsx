@@ -132,7 +132,7 @@ const LinkSceneModal: FC<Props> = ({
                                         return {
                                             ...prev,
                                             hotspots: [
-                                                ...prev.hotspots.slice(0, -2),
+                                                ...prev.hotspots.slice(0, -1),
                                                 {
                                                     ...prev.hotspots[prev.hotspots.length - 1],
                                                     link: parseInt(choice)

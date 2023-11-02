@@ -36,7 +36,7 @@ const Card = ({
                                     <div className="flex justify-center relative rounded-lg overflow-hidden h-52">
                                         <div className="transition-transform duration-500 transform ease-in-out hover:scale-110 w-full">
                                             <div className="absolute inset-0 bg-black">
-                                                <Image src={property?.scenes[0]?.img as string} alt="property" width={500} height={500} className="w-full h-full" />
+                                                <Image src={property?.scenes ? property?.scenes[0]?.img as string : ""} alt="property" width={500} height={500} className="w-full h-full" />
                                             </div>
                                         </div>
 
@@ -46,6 +46,12 @@ const Card = ({
                                                     property?.typeOfProperty === "bid" ? "Bid" : "For Sale"
                                                 )
                                             }
+                                        </span>
+
+                                        <span 
+                                        onClick={() => router.push("/client/properties/" + property?._id)}
+                                        className="absolute top-0 right-4 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-purple-400 text-sm font-medium text-white select-none">
+                                            View
                                         </span>
                                     </div>
 

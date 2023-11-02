@@ -106,6 +106,7 @@ export interface Specs {
 
 
 export interface PropertyType {
+    _id? : string,
     title : string,
     location : string,
     bedrooms : string,
