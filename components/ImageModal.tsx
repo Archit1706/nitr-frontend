@@ -8,6 +8,7 @@ import IMG from "assets/test.jpg";
 import { MdOutlineMyLocation } from "react-icons/md";
 import { Hotspot, Scene } from "@/types/MainTypes";
 import LinkSceneModal from "./LinkSceneModal";
+import InfoModal from "./InfoModal";
 
 interface Props {
     toggleCreateModal: () => void;
@@ -28,9 +29,10 @@ const ImageModal: FC<Props> = ({
     const panImage = useRef<any>();
 
     // const [marking, setMarking] = useState(false);
-    const marking = useRef(false);
+    const marking = useRef(0); // 0: none , 1 : hotspot , 2 : info
 
     const [linkSceneModal, setLinkSceneModal] = useState(false);
+    const [infoModal, setInfoModal] = useState(false);
 
     const hotspotIcon = (hotSpotDiv: HTMLDivElement) => {
         const image = document.createElement("img");
@@ -50,6 +52,9 @@ const ImageModal: FC<Props> = ({
         <>
             {
                 linkSceneModal && <LinkSceneModal scenes={scenes} selectedScene={selectedScene} setSelectedScene={setSelectedScene} toggleCreateModal={setLinkSceneModal} />
+            }
+            {
+                infoModal && <InfoModal scenes={scenes} selectedScene={selectedScene} setSelectedScene={setSelectedScene} toggleCreateModal={setInfoModal} />
             }
             <div className="z-[100] absolute transform top-5 bottom-5 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] bg-white rounded-[10px] flex flex-col items-center justify-between p-5 max-h-screen overflow-y-scroll noscr">
                 <div
@@ -80,20 +85,43 @@ const ImageModal: FC<Props> = ({
 
                 <div className="flex flex-col w-full items-start gap-4">
 
-                    <button
-                        onClick={() => {
-                            console.log("marking", marking);
-                            // setMarking(!marking);
-                            marking.current = !marking.current;
-                        }}
-                        className={`btn-sm text-gray-200 bg-gray-900 hover:bg-gray-700`}>
-                        {
-                            <>
-                                <span>Mark</span>
-                                <MdOutlineMyLocation className="w-5 h-5 ml-2" />
-                            </>
-                        }
-                    </button>
+                    <div className="flex gap-2.5">
+                        <button
+                            onClick={() => {
+                                console.log("marking", marking);
+                                // setMarking(!marking);
+                                if (marking.current === 1) {
+                                    marking.current = 0;
+                                }
+                                else marking.current = 1;
+                            }}
+                            className={`btn-sm text-gray-200 bg-gray-900 hover:bg-gray-700`}>
+                            {
+                                <>
+                                    <span>Hotspot</span>
+                                    <MdOutlineMyLocation className="w-5 h-5 ml-2" />
+                                </>
+                            }
+                        </button>
+
+                        <button
+                            onClick={() => {
+                                console.log("marking", marking);
+                                // setMarking(!marking);
+                                if (marking.current === 2) {
+                                    marking.current = 0;
+                                }
+                                else marking.current = 2;
+                            }}
+                            className={`btn-sm text-gray-200 bg-gray-900 hover:bg-gray-700`}>
+                            {
+                                <>
+                                    <span>Info</span>
+                                    <MdOutlineMyLocation className="w-5 h-5 ml-2" />
+                                </>
+                            }
+                        </button>
+                    </div>
                     <div
                         className="w-full aspect-video"
                     >
@@ -130,8 +158,7 @@ const ImageModal: FC<Props> = ({
                             // onTouchend={(evt : any) => { console.log("Touch End", evt); }}
                             // identify click action
                             onMouseup={(event: any) => {
-                                if (marking.current) {
-                                    console.log("marking now");
+                                if (marking.current === 1) {
                                     // setScenes((prev) => {
                                     //     return prev.map((scene, index) => {
                                     //         return scene.id === selectedScene.id ? {
@@ -165,7 +192,24 @@ const ImageModal: FC<Props> = ({
                                     })
 
                                     setLinkSceneModal(true)
-                                    marking.current = false
+                                    marking.current = 0;
+                                } else if (marking.current === 2) {
+                                    setSelectedScene((scene) => {
+                                        if (!scene) return null;
+                                        return {
+                                            ...scene,
+                                            hotspots: [...scene.hotspots, {
+                                                type: "info",
+                                                text: "Kitchen",
+                                                pitch: panImage.current.getViewer().mouseEventToCoords(event)[1],
+                                                yaw: panImage.current.getViewer().mouseEventToCoords(event)[0],
+                                                info: "some info",
+                                            }]
+                                        }
+                                    })
+
+                                    setInfoModal(true)
+                                    marking.current = 0;
                                 }
                             }}
                             hotspotDebug={false}
@@ -191,7 +235,7 @@ const ImageModal: FC<Props> = ({
                                         type={hotSpot.type === "custom" ? "custom" : "info"}
                                         pitch={hotSpot.pitch}
                                         yaw={hotSpot.yaw}
-                                        text={hotSpot.text}
+                                        text={hotSpot.info || hotSpot.text}
                                         handleClick={(evt: any) => {
                                             console.log("Hotspot clicked!", evt);
                                             setScenes((prev) => {

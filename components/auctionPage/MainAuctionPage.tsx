@@ -11,12 +11,13 @@ import { BsBookmark } from "react-icons/bs";
 import ProductCard from "../../components/Cards/ProductCard";
 import ReviewCard from "../Cards/ReviewCard";
 import TempImg from "@/assets/img/temp.jpg";
-import { Product } from "@/types/MainTypes";
+import { Product, PropertyType } from "@/types/MainTypes";
 import Link from "next/link";
 import Card from "../ui/Card";
 import { Pannellum } from "pannellum-react";
 
-import Test from "../../assets/real-estate/realEstate1.jpg";
+import Test from '../../assets/real-estate/realEstate1.jpg'
+import axios from "axios";
 
 import io from "socket.io-client";
 // import FAQ from "./FAQ";
@@ -64,6 +65,157 @@ const MainAuctionPage = (props: Props) => {
     const [bidList, setBidList] = useState([]);
 
     const [userCount, setUserCount] = useState(0);
+
+    const [properties, setProperties] = React.useState<PropertyType[]>([
+        {
+            "title": "Ramnivas",
+            "location": "Malad, Mumbai",
+            "bedrooms": "2",
+            "prop_size": "600",
+            "price": "2000000",
+            "desc": "New property on sale!",
+            "typeOfProperty": "rent",
+            "amenities": [
+                "A/C",
+                "Pool",
+                "Sea View"
+            ],
+            "scenes": [
+                {
+                    "id": 0,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "test",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 174.74930458511992,
+                            "yaw": 21.631147406159144,
+                            "link": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "nit",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 0.09009231299632514,
+                            "yaw": 10.723411299831989,
+                            "link": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Ramnivas 2",
+            "location": "Malad, Mumbai",
+            "bedrooms": "2",
+            "prop_size": "600",
+            "price": "2000000",
+            "desc": "New property on sale!",
+            "typeOfProperty": "sale",
+            "amenities": [
+                "A/C",
+                "Pool",
+                "Sea View"
+            ],
+            "scenes": [
+                {
+                    "id": 0,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "test",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 174.74930458511992,
+                            "yaw": 21.631147406159144,
+                            "link": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "nit",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 0.09009231299632514,
+                            "yaw": 10.723411299831989,
+                            "link": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "Ramnivas 3",
+            "location": "Malad, Mumbai",
+            "bedrooms": "2",
+            "prop_size": "600",
+            "price": "2000000",
+            "desc": "New property on sale!",
+            "typeOfProperty": "bid",
+            "amenities": [
+                "A/C",
+                "Pool",
+                "Sea View"
+            ],
+            "scenes": [
+                {
+                    "id": 0,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "test",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 174.74930458511992,
+                            "yaw": 21.631147406159144,
+                            "link": 1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "img": "https://fridayphotos.s3.eu-central-1.amazonaws.com/test_photoset/0005.JPG",
+                    "text": "nit",
+                    "hotspots": [
+                        {
+                            "type": "custom",
+                            "text": "Kitchen",
+                            "pitch": 0.09009231299632514,
+                            "yaw": 10.723411299831989,
+                            "link": 0
+                        }
+                    ]
+                }
+            ]
+        }
+    ]);
+
+    const fetchData = async () => {
+        try {
+            const res = await axios('http://localhost:3000/api/properties')
+            const data = res.data
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        // fetchData()
+    }, [])
+
+
 
     useEffect(() => {
         // check for window
@@ -120,15 +272,6 @@ const MainAuctionPage = (props: Props) => {
         };
         socket.emit("bid", messageContent);
         setPrice(amount);
-    };
-
-    const options = {
-        year: "2-digit",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
     };
 
     return (
@@ -236,7 +379,8 @@ const MainAuctionPage = (props: Props) => {
                             <span className="font-bold">
                                 {props?.product?.soldDate &&
                                     new Date(
-                                        props.product.soldDate
+                                        // @ts-ignore
+                                        props.product.soldDate.$date
                                     ).toLocaleDateString("en-US", {
                                         year: "numeric",
                                         month: "long",
@@ -559,7 +703,7 @@ const MainAuctionPage = (props: Props) => {
                     </h1>
                 </div>
                 <div className="flex flex-wrap justify-center gap-8">
-                    <Card fromBid={true} />
+                    <Card fromBid={true} properties={properties} />
                 </div>
             </div>
         </div>
