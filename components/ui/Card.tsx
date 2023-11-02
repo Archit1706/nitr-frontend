@@ -16,7 +16,7 @@ const Card = ({ properties, fromBid = false }: Props) => {
 
     const amenities = ["Swimming Pool", "Games", "Gym", "AC", "Fridge"];
 
-    // console.log(properties);
+    console.log(properties);
     return (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
             {properties?.map((property, index) => {
@@ -29,8 +29,10 @@ const Card = ({ properties, fromBid = false }: Props) => {
                                         <div className="absolute inset-0 bg-black">
                                             <Image
                                                 src={
-                                                    property?.scenes[0]
-                                                        ?.img as string
+                                                    property?.scenes
+                                                        ? (property?.scenes[0]
+                                                              ?.img as string)
+                                                        : ""
                                                 }
                                                 alt="property"
                                                 width={500}
@@ -46,6 +48,18 @@ const Card = ({ properties, fromBid = false }: Props) => {
                                             : property?.typeOfProperty === "bid"
                                             ? "Bid"
                                             : "For Sale"}
+                                    </span>
+
+                                    <span
+                                        onClick={() =>
+                                            router.push(
+                                                "/client/properties/" +
+                                                    property?._id
+                                            )
+                                        }
+                                        className="absolute top-0 right-4 inline-flex mt-3 ml-3 px-3 py-2 rounded-lg z-10 bg-purple-400 text-sm font-medium text-white select-none"
+                                    >
+                                        View
                                     </span>
                                 </div>
 
@@ -147,7 +161,7 @@ const Card = ({ properties, fromBid = false }: Props) => {
                                                 router.push("/client/chat");
                                             }}
                                             type="button"
-                                            className="px-2 py-1 bg-teal-400 text-white font-semibold rounded-lg"
+                                            className="px-2 py-1 bg-purple-400 text-white font-semibold rounded-lg"
                                         >
                                             <BsChatLeftDotsFill className="inline-block w-4 h-4 mr-3" />
                                             Contact

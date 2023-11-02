@@ -1,5 +1,6 @@
 'use client'
 
+import CurrencyFormat from 'react-currency-format'
 import {
     Tabs,
     TabsHeader,
@@ -7,18 +8,22 @@ import {
     Tab,
     TabPanel,
 } from "@material-tailwind/react";
+import { useRouter } from 'next/navigation'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import ImageModal from '@/components/ImageModal'
-import { Scene } from '@/types/MainTypes'
+import { PropertyType, Scene } from '@/types/MainTypes'
 import React from 'react'
 import { RxCross2 } from 'react-icons/rx'
 import Card from "@/components/ui/Card";
 import { FaHouseCircleCheck } from 'react-icons/fa6';
+import axios from "axios";
 
 type Props = {}
 
 const CreateProperty = (props: Props) => {
+
+    const router = useRouter()
 
     const [title, setTitle] = React.useState("");
     const [location, setLocation] = React.useState("");
@@ -36,6 +41,8 @@ const CreateProperty = (props: Props) => {
     const [showImageModal, setShowImageModal] = React.useState(false);
 
     const [selectedScene, setSelectedScene] = React.useState<Scene | null>(null);
+
+    const [properties, setProperties] = useState<PropertyType[]>([]);
 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -72,6 +79,26 @@ const CreateProperty = (props: Props) => {
     }
 
 
+    const fetchAll = async () => {
+        try {
+            const res = await axios("https://09ad-14-139-61-195.ngrok-free.app" + "/properties", {
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
+            const data = res.data
+            console.log(data)
+            setProperties(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchAll()
+    }, [])
+
+
     useEffect(() => {
         console.log("scene updated", scenes);
     }, [scenes])
@@ -83,7 +110,7 @@ const CreateProperty = (props: Props) => {
                 className='flex flex-col justify-center items-center w-full bg-gray-200 p-4 md:p-8'
             >
                 <h1 className='text-3xl font-semibold self-start text-gray-800 mb-3'>Your Properties</h1>
-                <div className=" bg-white rounded-[10px] flex flex-col w-full items-center justify-between p-10 max-h-screen overflow-y-scroll noscr">
+                <div className=" bg-white rounded-[10px] flex flex-col w-full items-center justify-between md:p-10 max-h-screen overflow-y-scroll noscr">
                     <div className="container mx-auto px-4 sm:px-8">
                         <div className="py-8">
                             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
@@ -110,7 +137,7 @@ const CreateProperty = (props: Props) => {
                                         </thead>
                                         <tbody>
                                             {
-                                                Array(10).fill(0).map((_, i) => {
+                                                properties?.map((property, i) => {
                                                     return (
                                                         <tr key={i}>
                                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -118,26 +145,44 @@ const CreateProperty = (props: Props) => {
                                                                     <div className="flex-shrink-0 w-6 h-6">
                                                                         <FaHouseCircleCheck className="w-full h-full rounded-full" />
                                                                     </div>
-                                                                    <div className="ml-3">
+                                                                    <div className="ml-3"
+                                                                    onClick={()=>{
+                                                                        router.push(`/properties/${property._id}`)
+                                                                    }}
+                                                                    >
                                                                         <p className="text-gray-900 whitespace-no-wrap">
-                                                                            Vera Carpenter
+                                                                            {property.title}
                                                                         </p>
                                                                     </div>
                                                                 </div>
                                                             </td>
                                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                                <p className="text-gray-900 whitespace-no-wrap">Admin</p>
+                                                                <p className="text-gray-900 whitespace-no-wrap">{property?.location}</p>
                                                             </td>
                                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                                <p className="text-gray-900 whitespace-no-wrap">Jan 21, 2020</p>
+                                                                <p className="text-gray-900 whitespace-no-wrap">{property?.prop_size}</p>
                                                             </td>
                                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                                <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                                                                    <span className="relative">Activo</span>
-                                                                </span>
+                                                                {
+                                                                    property?.typeOfProperty === "bid" ? (
+                                                                        <span className="relative inline-block px-3 py-1 font-semibold text-yellow-900 leading-tight">
+                                                                            <span className="relative">Bid</span>
+                                                                        </span>
+                                                                    ) : (
+                                                                        <span className="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                                                                            <span className="relative">
+                                                                                {
+                                                                                    property?.typeOfProperty === "rent" ? "Rent" : "Sale"
+                                                                                }
+                                                                            </span>
+                                                                        </span>
+                                                                    )
+                                                                }
                                                             </td>
                                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                                <p className="text-gray-900 whitespace-no-wrap">$3999</p>
+                                                                <p className="text-gray-900 whitespace-no-wrap">
+                                                                    <CurrencyFormat value={property?.price} displayType={'text'} thousandSeparator={true} prefix={'Rs.'} />
+                                                                </p>
                                                             </td>
                                                         </tr>
                                                     )

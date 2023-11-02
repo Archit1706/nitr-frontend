@@ -128,11 +128,11 @@ const ImageModal: FC<Props> = ({
                         <Pannellum
                             ref={panImage}
                             width="100%"
-                            height="100%"
+                            height="500PX"
                             image={!selectedScene.img ? "" : (selectedScene.img instanceof File ? URL.createObjectURL(selectedScene.img) : selectedScene.img)}
-                            pitch={10}
-                            yaw={180}
-                            // hfov={400}
+                            // pitch={10}
+                            // yaw={50}
+                            // hfov={100}
                             // vfov={200}
                             autoLoad
                             author=""
@@ -157,7 +157,10 @@ const ImageModal: FC<Props> = ({
                             // onTouchstart={(evt : any) => { console.log("Touch Start", evt); }}
                             // onTouchend={(evt : any) => { console.log("Touch End", evt); }}
                             // identify click action
-                            onMouseup={(event: any) => {
+                            onMousedown={(event: any) => {
+
+
+                                console.log("cpm",panImage.current.getViewer().mouseEventToCoords(event))
                                 if (marking.current === 1) {
                                     // setScenes((prev) => {
                                     //     return prev.map((scene, index) => {

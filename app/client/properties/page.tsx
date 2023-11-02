@@ -186,9 +186,14 @@ const CreateProperty = (props: Props) => {
 
     const fetchData = async () => {
         try {
-            const res = await axios("https://09ad-14-139-61-195.ngrok-free.app" + "properties")
+            const res = await axios("https://09ad-14-139-61-195.ngrok-free.app" + "/properties", {
+                headers: {
+                    "ngrok-skip-browser-warning": "69420",
+                },
+            })
             const data = res.data
             console.log(data)
+            setProperties(data)
         } catch (error) {
             console.log(error)
         }
